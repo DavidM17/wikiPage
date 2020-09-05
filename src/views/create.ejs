@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WikiPages</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/11.0.0/markdown-it.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/11.0.0/markdown-it.min.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-light bg-dark">
+    <a href="/pages" class="navbar-brand" style="color: blanchedalmond;">Wiki</a>
+    <form action="/search" method="POST" class="form-inline">
+      <input name="info" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </nav>
+  <form action="/create" method="POST" style="width: max-content;padding-left: 50px;">
+    <div class="row">
+      <div class="col">
+        <h4>Title:</h2>
+          <h4>Description:</h2>
+      </div>
+      <div class="col">
+        <input name="title" type="text" class="form-control">
+        <input name="description" type="text" class="form-control">
+      </div>
+      <div class="btns" style="padding-left: 40px;">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="/pages" class="btn btn-light" type="button">Cancel</a>
+      </div>
+
+    </div>
+
+
+
+    <div class="form-row" style="padding: 20px;">
+      <div class="form-group" style="width:80%;">
+        <textarea name="aftercontent" class="form-control" id="markdown" rows="15" cols="70"></textarea>
+
+      </div>
+
+      <div class="rendered" id="html" style="padding-left: 20px;width: max-content;padding-right: 20px;"></div>
+    </div>
+  </form>
+  <script>
+    var md = window.markdownit();
+
+    const markdownview = document.querySelector('#markdown');
+    const htmlview = document.querySelector('#html');
+
+    const renderToMarkdown = (markdown) => {
+      var result = md.render(markdown);
+      htmlview.innerHTML = result;
+    };
+
+    markdownview.addEventListener('keyup', e => {
+      const currentContent = e.target.value;
+      renderToMarkdown(currentContent);
+    });
+  </script>
+
+
+</body>
+
+</html>
